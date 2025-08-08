@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capote International Business Park</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* =====================================
+           WEBSITE STYLES FOR CAPOTE INTERNATIONAL BUSINESS PARK
+           ===================================== */
+
+        /* BASIC SETUP */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* COLOR SCHEME - Change these to update site colors */
+        :root {
+            --primary-color: #d32f2f; /* Red from logo */
+            --secondary-color: #666;
+            --accent-color: #f5f5f5;
+            --dark-color: #333;
+            --light-gray: #e0e0e0;
+        }
+
+        /* NAVIGATION BAR STYLES */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-container img.logo {
+            height: 75px;
+            width: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            border: none;
+            background: none;
+            border-radius: 12px;
+            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.3));
+            padding: 4px;
+        }
+
+        .nav-container img.logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+            background: rgba(211, 47, 47, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--primary-color);
+            background: rgba(211, 47, 47, 0.15);
+            box-shadow: 0 2px 8px rgba(211, 47, 47, 0.2);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Mobile menu toggle */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark-color);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        .mobile-nav-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: left 0.3s ease;
+            z-index: 1000;
+        }
+
+        .mobile-nav-menu.active {
+            left: 0;
+        }
+
+        .mobile-nav-menu a {
+            color: var(--dark-color);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin: 1rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        /* HOMEPAGE SLIDESHOW STYLES */
+        /* Hero Section with Slideshow */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero-slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        /* SLIDESHOW PHOTO URLs - Replace these URLs to change homepage photos */
+        .slide-1 {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.postimg.cc/63KMWLNG/Building-F-ISO.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide-2 {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.postimg.cc/VvGgWx0j/Capote-Monument.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide-3 {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.postimg.cc/VLh4rc8w/Capote-Aerial.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide-4 {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.postimg.cc/k5KjPYLm/Building-G-ISO.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide-5 {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.postimg.cc/sDM4R0ZN/Warehouse-INT-1.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide-6 {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.postimg.cc/T3ZkSv70/Building-H-ISO.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide-7 {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.postimg.cc/sDM4R0ZN/Warehouse-INT-1.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease-out;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* BUTTON STYLES */
+        .cta-button {
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease-out;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            background: #b71c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.3);
+        }
+
+        /* GENERAL SECTION STYLES */
+        /* Sections */
+        .section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* FEATURE CARDS (Homepage & About page) */
+        /* Features Section */
+        .features {
+            background: var(--accent-color);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        /* ABOUT PAGE STYLES */
+        /* About text styling */
+        .about-text {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .about-text h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* PROPERTIES PAGE STYLES */
+        /* Properties Section */
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .property-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .property-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #e0e0e0, #f5f5f5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        .property-content {
+            padding: 1.5rem;
+        }
+
+        .property-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .property-details {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+
+        .property-details li {
+            padding: 0.3rem 0;
+            color: var(--secondary-color);
+        }
+
+        .property-details li strong {
+            color: var(--dark-color);
+        }
+
+        /* CONTACT PAGE & FORM STYLES */
+        /* Contact Section */
+        .contact {
+            background: var(--accent-color);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--light-gray);
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            background: #b71c1c;
+            transform: translateY(-2px);
+        }
+
+        .contact-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .contact-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        /* COMPANY LOGO STYLING (Contact page tiles) */
+        .contact-item-logo {
+            width: 100px;
+            height: 100px;
+            background: white;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .contact-item-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 5px;
+        }
+
+        .contact-item-content {
+            flex: 1;
+        }
+
+        .contact-item h4 {
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item p {
+            color: var(--secondary-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* MAP & MASTERPLAN STYLES */
+        /* Map Section */
+        .map-container {
+            height: 400px;
+            background: var(--light-gray);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        /* FOOTER STYLES */
+        /* Footer */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-logo {
+            height: 60px;
+            width: 200px;
+            margin: 0 auto 1rem;
+            border-radius: 12px;
+            filter: drop-shadow(0 6px 12px rgba(255,255,255,0.6));
+            padding: 4px;
+        }
+
+        .footer p {
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* MOBILE RESPONSIVE STYLES */
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .nav-menu {
+                gap: 1.5rem;
+            }
+            
+            .nav-link {
+                padding: 7px 14px;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .nav-menu {
+                gap: 1rem;
+            }
+            
+            .nav-link {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 950px) {
+            .nav-menu {
+                gap: 0.8rem;
+            }
+            
+            .nav-link {
+                padding: 6px 10px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .nav-menu {
+                gap: 0.6rem;
+            }
+            
+            .nav-link {
+                padding: 5px 8px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .nav-menu {
+                gap: 0.4rem;
+            }
+            
+            .nav-link {
+                padding: 4px 6px;
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Page Navigation */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- =====================================
+         WEBSITE HTML STRUCTURE
+         ===================================== -->
+    
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <img src="https://i.postimg.cc/4yNwtfyf/Capote-Logo.png" alt="Capote International Business Park" class="logo" onclick="showPage('home')" style="height: 60px; cursor: pointer; width: auto; transition: transform 0.3s ease;">
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link home-link" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" class="nav-link site-plan-link" onclick="showPage('site-plan')">Masterplan / Map</a></li>
+                <li><a href="#" class="nav-link about-link" onclick="showPage('about')">About the Park</a></li>
+                <li><a href="#" class="nav-link properties-link" onclick="showPage('properties')">Available Properties</a></li>
+                <li><a href="#" class="nav-link partners-link" onclick="showPage('partners')">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <!-- Mobile Navigation Menu -->
+            <div class="mobile-nav-menu" id="mobileNavMenu">
+                <a href="#" onclick="showPageMobile('home')">Home</a>
+                <a href="#" onclick="showPageMobile('site-plan')">Masterplan / Map</a>
+                <a href="#" onclick="showPageMobile('about')">About the Park</a>
+                <a href="#" onclick="showPageMobile('properties')">Available Properties</a>
+                <a href="#" onclick="showPageMobile('partners')">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===================================== 
+         HOME PAGE 
+         ===================================== -->
+    <div id="home" class="page active">
+        <!-- HERO SLIDESHOW SECTION -->
+        <section class="hero">
+            <div class="hero-slideshow">
+                <!-- SLIDESHOW IMAGES: Change cycling every 6 seconds -->
+                <div class="hero-slide slide-1 active"></div>
+                <div class="hero-slide slide-2"></div>
+                <div class="hero-slide slide-3"></div>
+                <div class="hero-slide slide-4"></div>
+                <div class="hero-slide slide-5"></div>
+                <div class="hero-slide slide-6"></div>
+                <div class="hero-slide slide-7"></div>
+            </div>
+            <div class="hero-content">
+                <!-- HOMEPAGE MAIN TEXT: Edit these lines to change homepage content -->
+                <h1>Capote International Business Park</h1>
+                <p>Premier 300-acre Class A commercial development in the heart of South Texas, adjacent to the Pharr International Bridge</p>
+                <a href="#" class="cta-button" onclick="showPageAndScrollToForm('partners')">Contact Us Today</a>
+            </div>
+        </section>
+
+        <!-- HOMEPAGE FEATURES SECTION -->
+        <section class="section" id="features-preview">
+            <div class="container">
+                <h2 class="section-title">Why Capote?</h2>
+                <p class="section-subtitle">Exceptional location, unparalleled access, and world-class facilities</p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🌉</div>
+                        <h3>Strategic Location</h3>
+                        <p>Adjacent to Pharr International Bridge - the primary commercial crossing in the McAllen MSA</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🏢</div>
+                        <h3>Class A Facilities</h3>
+                        <p>Concrete tilt-wall construction, ample truck courts, and state-of-the-art fire protection systems</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🤝</div>
+                        <h3>Single Source Management</h3>
+                        <p>Single source responsibility, ownership, development and management ensuring highest quality</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===================================== 
+         ABOUT THE PARK PAGE 
+         ===================================== -->
+    <div id="about" class="page">
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">About the Park</h2>
+                <p class="section-subtitle">A best-in-class industrial development at the crossroads of international commerce</p>
+                
+                <div class="about-text">
+                    <!-- ABOUT PAGE TEXT: Edit these paragraphs to change about content -->
+                    <h3>Excellence in Industrial Development</h3>
+                    <p>Capote International Business Park is a 300-acre, Class A commercial development positioned in the heart of South Texas. Located in the City of Pharr, this exceptional development is adjacent to the most active commercial port of entry in the Rio Grande Valley.</p>
+                    
+                    <p>Originally owned and developed by the Dyer family (Phase 1: Buildings A-F), the industrial park is on its second phase of development with recently completed Buildings G and H on the east side of the park.</p>
+                    
+                    <p>Capote Phase II offers space only for lease, ensuring the highest quality and standards through single source responsibility, ownership, development and management.</p>
+                </div>
+                
+                <div class="about-image" style="text-align: center;">
+                    <!-- AERIAL VIEW IMAGE: Replace URL to change aerial photo -->
+                    <img src="https://i.postimg.cc/FFDTvLC7/Capote-PIBC.jpg" alt="Aerial View of Capote International Business Park" style="width: 100%; height: 400px; object-fit: cover; border-radius: 10px; max-width: 800px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                </div>
+            </div>
+        </section>
+
+        <section class="section features">
+            <div class="container">
+                <h2 class="section-title">Strategic Advantages</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🚛</div>
+                        <h3>Just-In-Time Distribution</h3>
+                        <p>South bound distribution to Mexican manufacturing plants allows "just in time" raw materials for production and promotes lean manufacturing.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🏪</div>
+                        <h3>Secure Storage</h3>
+                        <p>North bound distribution allows finished goods to be stored in a safe and secure environment.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💰</div>
+                        <h3>Cost Reduction</h3>
+                        <p>Proximity to the port of entry reduces shipping costs through reduced fuel costs and time in transit.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===================================== 
+         AVAILABLE PROPERTIES PAGE 
+         ===================================== -->
+    <div id="properties" class="page">
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Available Properties</h2>
+                <p class="section-subtitle">Modern facilities designed for today's industrial and distribution needs</p>
+                
+                <div class="properties-grid">
+                    <!-- BUILDING H PROPERTY CARD -->
+                    <div class="property-card">
+                        <div class="property-image" style="background-image: url('https://i.postimg.cc/T3ZkSv70/Building-H-ISO.jpg'); background-size: cover; background-position: center; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); display: flex; align-items: flex-end; padding: 1rem;">
+                            <!-- BUILDING H PHOTO: Replace URL to change Building H image -->
+                            Building H - Newly Completed (2024)
+                        </div>
+                        <div class="property-content">
+                            <h3 class="property-title">Building H</h3>
+                            <!-- BUILDING H DETAILS: Edit these lines to change Building H info -->
+                            <ul class="property-details">
+                                <li><strong>Building Size:</strong> 160,000 SF</li>
+                                <li><strong>Status:</strong> Available for Lease</li>
+                                <li><strong>Construction:</strong> Concrete Tile Wall</li>
+                                <li><strong>Features:</strong> 36 ft clear height, 185 ft truck courts</li>
+                            </ul>
+                            <div style="text-align: center; margin-top: 1.5rem;">
+                                <!-- BUILDING H FLYER LINK: Replace URL to change flyer link -->
+                                <a href="https://www.loopnet.com/viewer/pdf?file=https%3a%2f%2fimages1.loopnet.com%2fd2%2fn2j6GOLIaC7CoqJeKQKMR8NQP2svMCteYE7mzO3vAxw%2fCapote%2520H%2520Flyer%2520250414.pdf" target="_blank" class="cta-button">Click for Flyer</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- BUILD-TO-SUIT PROPERTY CARD -->
+                    <div class="property-card">
+                        <div class="property-image" style="background-image: url('https://i.postimg.cc/52H7n23j/BTS.jpg'); background-size: cover; background-position: center; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); display: flex; align-items: flex-end; padding: 1rem;">
+                            <!-- BUILD-TO-SUIT PHOTO: Replace URL to change Build-to-Suit image -->
+                            Build-to-Suit Opportunities
+                        </div>
+                        <div class="property-content">
+                            <h3 class="property-title">Custom Build-to-Suit</h3>
+                            <ul class="property-details">
+                                <li><strong>Status:</strong> Sites available ranging from 10 to 70 acres</li>
+                                <li><strong>Customization:</strong> Warehouse, distribution, manufacturing</li>
+                                <li><strong>Infrastructure:</strong> Ready for development</li>
+                                <li><strong>Timeline:</strong> Flexible scheduling</li>
+                                <li><strong>Services:</strong> Turn-key project design, development, and financing</li>
+                            </ul>
+                            <div style="text-align: center; margin-top: 1.5rem;">
+                                <a href="#" class="cta-button" onclick="showPageAndScrollToForm('partners')">Discuss Your Needs</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===================================== 
+         MASTERPLAN / MAP PAGE 
+         ===================================== -->
+    <div id="site-plan" class="page">
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Masterplan & Location</h2>
+                <p class="section-subtitle">Strategic positioning at the heart of international commerce</p>
+                
+                <div style="margin-bottom: 3rem;">
+                    <!-- MASTERPLAN IMAGE: Replace URL to change masterplan -->
+                    <div id="masterplanContainer" style="position: relative; display: block; width: 100%; cursor: zoom-in; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                        <img id="masterplanImage" src="https://i.postimg.cc/BvH3h119/CAPOTE-MASTER-Zoomed.jpg" alt="Capote Masterplan" style="width: 100%; height: 500px; object-fit: contain; background: white; transition: transform 0.3s ease; display: block;">
+                        <div id="zoomControls" style="position: absolute; top: 10px; right: 10px; display: none;">
+                            <button onclick="resetZoom()" style="background: rgba(0,0,0,0.7); color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Reset Zoom</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- GOOGLE MAPS EMBED -->
+                <div class="map-container" style="height: 500px; padding: 0; background: none;">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d4451.111866550011!2d-98.193729!3d26.089613!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjbCsDA1JzIyLjYiTiA5OMKwMTEnMzcuNCJX!5e1!3m2!1sen!2sus!4v1754599835868!5m2!1sen!2sus" width="100%" height="100%" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===================================== 
+         CONTACT / PARTNERS PAGE 
+         ===================================== -->
+    <div id="partners" class="page">
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Development Partners & Project Team</h2>
+                <p class="section-subtitle">Working with the most qualified and respected professionals in South Texas</p>
+                
+                <div class="contact-grid">
+                    <div>
+                        <h3 style="color: var(--primary-color); margin-bottom: 2rem;">Development Partners</h3>
+                        
+                        <!-- DEVELOPMENT PARTNER: Nick Dyer -->
+                        <div class="contact-item">
+                            <div class="contact-item-logo">
+                                <!-- OCOTILLO LOGO: Replace URL to change Ocotillo logo -->
+                                <img src="https://i.postimg.cc/HWZ9RCjM/OCP-Square-Red.png" alt="Ocotillo Capital Partners Logo">
+                            </div>
+                            <div class="contact-item-content">
+                                <!-- NICK DYER CONTACT INFO: Edit these lines to change contact details -->
+                                <h4>Nick Dyer</h4>
+                                <p><strong>Principal</strong></p>
+                                <p>Ocotillo Capital Partners</p>
+                                <p>📞 <a href="tel:5125734749">(512) 573-4749</a></p>
+                                <p>✉️ <a href="mailto:nick@ocotillocap.com">nick@ocotillocap.com</a></p>
+                            </div>
+                        </div>
+                        
+                        <!-- DEVELOPMENT PARTNER: Josh Pollock -->
+                        <div class="contact-item">
+                            <div class="contact-item-logo">
+                                <img src="https://i.postimg.cc/HWZ9RCjM/OCP-Square-Red.png" alt="Ocotillo Capital Partners Logo">
+                            </div>
+                            <div class="contact-item-content">
+                                <h4>Josh Pollock</h4>
+                                <p><strong>Principal</strong></p>
+                                <p>Ocotillo Capital Partners</p>
+                                <p>📞 <a href="tel:2103551809">(210) 355-1809</a></p>
+                                <p>✉️ <a href="mailto:josh@ocotillocap.com">josh@ocotillocap.com</a></p>
+                            </div>
+                        </div>
+
+                        <!-- DEVELOPMENT PARTNER: Phil Dyer -->
+                        <div class="contact-item">
+                            <div class="contact-item-logo">
+                                <!-- CAPOTE LOGO: Replace URL to change Capote logo -->
+                                <img src="https://i.postimg.cc/4yNwtfyf/Capote-Logo.png" alt="Capote International Business Park Logo">
+                            </div>
+                            <div class="contact-item-content">
+                                <h4>Phil Dyer</h4>
+                                <p><strong>Managing Partner</strong></p>
+                                <p>Capote International Business Park</p>
+                                <p>📞 <a href="tel:2102732793">(210) 273-2793</a></p>
+                                <p>✉️ <a href="mailto:pdyer@capotecrossing.com">pdyer@capotecrossing.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: var(--primary-color); margin-bottom: 2rem;">Project Team</h3>
+                        
+                        <div class="contact-item">
+                            <div class="contact-item-logo">
+                                <img src="https://i.postimg.cc/pr6QFK3C/TWG.jpg" alt="The Warren Group Logo">
+                            </div>
+                            <div class="contact-item-content">
+                                <h4>Project Architects</h4>
+                                <p><strong>The Warren Group Inc.</strong></p>
+                                <p>🌐 <a href="http://www.twgarch.com" target="_blank">www.twgarch.com</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-item-logo">
+                                <img src="https://i.postimg.cc/GmsKvSLy/Halff.jpg" alt="Halff Associates Logo">
+                            </div>
+                            <div class="contact-item-content">
+                                <h4>Project Engineer</h4>
+                                <p><strong>Halff Associates</strong></p>
+                                <p>🌐 <a href="http://www.halff.com" target="_blank">www.halff.com</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-item-logo">
+                                <img src="https://i.postimg.cc/43k5PbyF/ICCON.png" alt="ICCON LLC Logo">
+                            </div>
+                            <div class="contact-item-content">
+                                <h4>General Contractor</h4>
+                                <p><strong>ICCON, LLC</strong></p>
+                                <p>🌐 <a href="http://www.icconllc.com" target="_blank">www.icconllc.com</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-item-logo">
+                                <img src="https://i.postimg.cc/6q3LqMbT/STXCRE.jpg" alt="South Texas Commercial Real Estate Logo">
+                            </div>
+                            <div class="contact-item-content">
+                                <h4>Brokerage Representation</h4>
+                                <p><strong>South Texas Commercial Real Estate</strong></p>
+                                <p>🌐 <a href="http://www.stxcre.com" target="_blank">www.stxcre.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CONTACT FORM SECTION -->
+                <div style="margin-top: 4rem; padding-top: 3rem; border-top: 2px solid var(--light-gray);">
+                    <div class="contact-form" style="max-width: 800px; margin: 0 auto;">
+                        <h3 style="text-align: center; margin-bottom: 2rem;">Request Information</h3>
+                        <form id="partnersContactForm" action="https://formspree.io/f/mvgqvvzg" method="POST">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div class="form-group">
+                                    <label for="partnerName">Full Name *</label>
+                                    <input type="text" id="partnerName" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="partnerCompany">Company</label>
+                                    <input type="text" id="partnerCompany" name="company">
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div class="form-group">
+                                    <label for="partnerEmail">Email Address *</label>
+                                    <input type="email" id="partnerEmail" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="partnerPhone">Phone Number</label>
+                                    <input type="tel" id="partnerPhone" name="phone">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="partnerInterest">Interest Type</label>
+                                <select id="partnerInterest" name="interest">
+                                    <option value="">Select an option</option>
+                                    <option value="leasing">Leasing Existing Space</option>
+                                    <option value="build-to-suit">Build-to-Suit Development</option>
+                                    <option value="investment">Investment Opportunity</option>
+                                    <option value="general">General Information</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="partnerMessage">Message</label>
+                                <textarea id="partnerMessage" name="message" placeholder="Tell us about your specific needs..."></textarea>
+                            </div>
+                            
+                            <!-- Hidden fields for Formspree configuration -->
+                            <input type="hidden" name="_cc" value="nick@ocotillocap.com,josh@ocotillocap.com">
+                            <input type="hidden" name="_subject" value="New Inquiry from Capote International Business Park Website">
+                            <input type="hidden" name="_next" value="thank-you">
+                            
+                            <div style="text-align: center;">
+                                <button type="submit" class="submit-btn">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===================================== 
+         FOOTER 
+         ===================================== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- FOOTER LOGO: Replace URL to change footer logo -->
+            <img src="https://i.postimg.cc/63xWwhNp/Capote-Logo-Black.jpg" alt="Capote International Business Park" class="footer-logo" style="height: 60px; margin: 0 auto 1rem;">
+            <!-- FOOTER LINKS: Edit these links and text -->
+            <p>Development by <a href="https://www.ocotillocap.com" target="_blank" style="color: #a94734; text-decoration: none;">Ocotillo Capital Partners</a></p>
+            <p>&copy; 2025 Capote International Business Park. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        /* =====================================
+           WEBSITE JAVASCRIPT FUNCTIONALITY
+           ===================================== */
+
+        // SLIDESHOW TIMING: Change the number to adjust slideshow speed (in milliseconds)
+        // Hero Slideshow
+        // Hero Slideshow
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        const totalSlides = slides.length;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % totalSlides;
+            slides[currentSlide].classList.add('active');
+        }
+
+        // Start slideshow
+        setInterval(nextSlide, 6000); // Change every 6 seconds
+
+        // Mobile menu functionality
+        function showPageMobile(pageId) {
+            showPage(pageId);
+            closeMobileMenu();
+        }
+
+        function toggleMobileMenu() {
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileNavMenu');
+            
+            mobileToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileNavMenu');
+            
+            mobileToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        }
+
+        // Page Navigation with optional scroll to form
+        function showPageAndScrollToForm(pageId) {
+            showPage(pageId);
+            
+            // Wait for page to load and animations to start, then scroll to form
+            setTimeout(() => {
+                const form = document.getElementById('partnersContactForm');
+                if (form) {
+                    const navbar = document.querySelector('.navbar');
+                    const navbarHeight = navbar.offsetHeight;
+                    const formPosition = form.offsetTop - navbarHeight - 60; // 60px extra padding
+                    
+                    window.scrollTo({ 
+                        top: formPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 800);
+        }
+
+        // Page Navigation
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update active nav link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Add active class to current nav link based on page
+            let linkSelector = '';
+            switch(pageId) {
+                case 'home':
+                    linkSelector = '.home-link';
+                    break;
+                case 'about':
+                    linkSelector = '.about-link';
+                    break;
+                case 'properties':
+                    linkSelector = '.properties-link';
+                    break;
+                case 'site-plan':
+                    linkSelector = '.site-plan-link';
+                    break;
+                case 'partners':
+                    linkSelector = '.partners-link';
+                    break;
+            }
+            
+            const activeLink = document.querySelector(linkSelector);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Trigger animations
+            setTimeout(() => {
+                const sections = document.querySelectorAll(`#${pageId} .section`);
+                sections.forEach((section, index) => {
+                    setTimeout(() => {
+                        section.classList.add('active');
+                    }, index * 200);
+                });
+            }, 100);
+        }
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Initialize home page
+            setTimeout(() => {
+                // Set home as active on load
+                document.querySelector('.home-link').classList.add('active');
+                
+                const homeSections = document.querySelectorAll('#home .section');
+                homeSections.forEach((section, index) => {
+                    setTimeout(() => {
+                        section.classList.add('active');
+                    }, index * 200);
+                });
+            }, 500);
+
+            // Partners contact form handling
+            const partnersForm = document.getElementById('partnersContactForm');
+            if (partnersForm) {
+                partnersForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get form data
+                    const formData = new FormData(this);
+                    const data = Object.fromEntries(formData);
+                    
+                    // Simple validation
+                    if (!data.name || !data.email) {
+                        alert('Please fill in all required fields.');
+                        return;
+                    }
+                    
+                    // Simulate form submission
+                    alert('Thank you for your inquiry! We will contact you within 24 hours.');
+                    this.reset();
+                });
+            }
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+            });
+        });
+
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            if (mobileToggle) {
+                mobileToggle.addEventListener('click', toggleMobileMenu);
+            }
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                const mobileMenu = document.getElementById('mobileNavMenu');
+                const mobileToggle = document.getElementById('mobileMenuToggle');
+                
+                if (mobileMenu && mobileMenu.classList.contains('active') && 
+                    !mobileMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+                    closeMobileMenu();
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 30px rgba(0,0,0,0.15)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // Add hover effects for property cards
+        document.querySelectorAll('.property-card, .feature-card, .contact-item').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
